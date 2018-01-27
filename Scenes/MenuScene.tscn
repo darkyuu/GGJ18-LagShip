@@ -7,6 +7,23 @@
 
 script = ExtResource( 1 )
 
-[node name="HUD" parent="." index="0" instance=ExtResource( 2 )]
+[node name="ColorRect" type="ColorRect" parent="." index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 861.0
+margin_bottom = 486.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.0102539, 0.116932, 0.125, 1 )
+
+[node name="HUD" parent="." index="1" instance=ExtResource( 2 )]
+
+[connection signal="start_game" from="HUD" to="." method="new_game"]
 
 
