@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/blackhole4.wav-bc4bd7e83e6fd29c9e97c96e70ce7bc4.sample"
+
+[deps]
+
+source_file="res://Assets/audio/blackhole4.wav"
+source_md5="c8d5ab9dd1638e0a92885dcb00372bba"
+
+dest_files=[ "res://.import/blackhole4.wav-bc4bd7e83e6fd29c9e97c96e70ce7bc4.sample" ]
+dest_md5="36a87d647d9e68633dabd153913514dc"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

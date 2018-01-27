@@ -10,7 +10,6 @@ func _process(delta):
 	pass
 
 func _on_CommandExecutePoint_body_entered( body ):
-	print("*"+body.get_name())
 	if body.get_name().find("TurnRightCommand") != -1:
 		emit_signal("call_right")
 	else:

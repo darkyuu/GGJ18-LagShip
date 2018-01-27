@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/GameplayScene.gd" type="Script" id=1]
 [ext_resource path="res://GameObjects/TurnRightCommandObject.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/spacebg_animation/frame6.png" type="Texture" id=10]
 [ext_resource path="res://GameObjects/ShipObject.tscn" type="PackedScene" id=11]
 [ext_resource path="res://GameObjects/CommandExecutePoint.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Assets/audio/damagemixed1.wav" type="AudioStream" id=13]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -37,7 +38,7 @@ max_command_frame_counter = 45
 position = Vector2( 436, 237 )
 frames = SubResource( 1 )
 animation = "default"
-frame = 2
+frame = 3
 playing = true
 _sections_unfolded = [ "Transform" ]
 
@@ -103,6 +104,16 @@ _sections_unfolded = [ "Transform" ]
 
 position = Vector2( 575, 381 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="." index="6"]
+
+stream = ExtResource( 13 )
+volume_db = -15.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[connection signal="hit" from="Ship" to="." method="game_over"]
 
 [connection signal="call_left" from="CommandExecutePoint" to="." method="force_ship_turn_left"]
 

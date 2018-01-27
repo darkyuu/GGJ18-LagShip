@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/laser_alien3.wav-63d5eb90e4f868c2c7b4f1e952f6d7fe.sample"
+
+[deps]
+
+source_file="res://Assets/audio/laser_alien3.wav"
+source_md5="f7d7b5623ddae7813c520e81c21dc54e"
+
+dest_files=[ "res://.import/laser_alien3.wav-63d5eb90e4f868c2c7b4f1e952f6d7fe.sample" ]
+dest_md5="6483858496fb8a416c3a77ded6d6ad33"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

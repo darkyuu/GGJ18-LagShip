@@ -7,6 +7,7 @@ var current_scene = null
 var new_scene = null
 var current_command_buffer = 0
 var asteroid_velocity = 50
+var paused = false
 
 var aim_to_ship_rotation = {1: PI/4, 2: PI/2, 3: 3*PI/4,
 							4: 0, 5: PI,  
@@ -14,7 +15,6 @@ var aim_to_ship_rotation = {1: PI/4, 2: PI/2, 3: 3*PI/4,
 
 func _ready():
 	screen_size = get_viewport().size
-#	print("Global initialize: "+str(screen_size.x)+", "+str(screen_size.y))
 	var root = get_tree().get_root()
 	# TODO: change this when adding start screen
 	current_scene = root.get_child(root.get_child_count() - 1)

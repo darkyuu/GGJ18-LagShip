@@ -3,7 +3,7 @@ extends Area2D
 signal hit
 
 var current_direction = PI/2
-var current_state = "idle"
+#var current_state = "idle"
 var current_position;
 
 func _ready():
@@ -46,4 +46,9 @@ func trim_direction_in_radian():
 		current_direction = 0;
 	elif current_direction <= -2*PI:
 		current_direction = 0;
-		
+
+func _on_Ship_body_entered( body ):
+	$Collision.disabled = true
+	hide()
+	emit_signal("hit")
+

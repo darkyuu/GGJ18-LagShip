@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/suckedbyblackhole1.wav-cd7763447301b287f4667f4c7640eb4e.sample"
+
+[deps]
+
+source_file="res://Assets/audio/suckedbyblackhole1.wav"
+source_md5="8971ba1b08ec39d4945dca2fc3482348"
+
+dest_files=[ "res://.import/suckedbyblackhole1.wav-cd7763447301b287f4667f4c7640eb4e.sample" ]
+dest_md5="12374f849ba58721f11ff0b20adcf1d1"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
