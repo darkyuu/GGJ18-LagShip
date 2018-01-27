@@ -22,7 +22,7 @@ func goto_scene(path):
 	current_scene = new_scene
 	
 func new_game():
-	goto_scene("res://scritps/GameplayScene.tscn")
+	goto_scene("res://scenes/GameplayScene.tscn")
 	
 	
 	
