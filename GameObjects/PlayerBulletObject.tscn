@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/PlayerBulletObject.gd" type="Script" id=1]
+[ext_resource path="res://Assets/sprite/laser.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 29.419, 30.1415 )
+
+[node name="PlayerBullet" type="Area2D"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+speed = 1000
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 2 )
+
+[node name="Collision" type="CollisionShape2D" parent="." index="1"]
+
+position = Vector2( 2.20976, 0.245385 )
+scale = Vector2( 0.165409, 0.916883 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="." to="." method="_on_PlayerBullet_body_entered"]
+
+

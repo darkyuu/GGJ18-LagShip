@@ -74,7 +74,4 @@ func game_over():
 	Global.paused = true
 	$AsteroidTimer.stop();
 	
-#	$DeathSound.play()
-#	$Music.stop()
-#	$AsteroidTimer.stop()
 #	$GameplayHUD.show_game_over()

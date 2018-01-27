@@ -1,14 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/AsteroidObject.gd" type="Script" id=1]
 [ext_resource path="res://Assets/sprite/comet.png" type="Texture" id=2]
+[ext_resource path="res://GameObjects/ExplosionSpriteEffect.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/audio/explosion_short2.wav" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 31.341
 
-[node name="Asteroid" type="RigidBody2D" index="0"]
+[node name="Asteroid" type="RigidBody2D"]
 
 input_pickable = false
 collision_layer = 1
@@ -37,9 +39,22 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
 texture = ExtResource( 2 )
+_sections_unfolded = [ "Animation", "Region", "Transform", "Visibility", "Z Index" ]
 
 [node name="Collision" type="CollisionShape2D" parent="." index="1"]
 
 shape = SubResource( 1 )
+
+[node name="ExplosionSpriteEffect" parent="." index="2" instance=ExtResource( 3 )]
+
+[node name="ExplosionSound" type="AudioStreamPlayer" parent="." index="3"]
+
+stream = ExtResource( 4 )
+volume_db = -13.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[connection signal="animation_finished" from="ExplosionSpriteEffect" to="." method="_on_ExplosionSpriteEffect_animation_finished"]
 
 
