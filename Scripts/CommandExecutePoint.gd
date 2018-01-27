@@ -17,4 +17,3 @@ func _on_CommandExecutePoint_body_entered( body ):
 		emit_signal("call_left")
 	Global.current_command_buffer -= 1
 	body.queue_free()
-#	print("current_command_buffer: "+str(Global.current_command_buffer))

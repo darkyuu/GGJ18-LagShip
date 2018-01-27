@@ -1,18 +1,25 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/GameplayScene.gd" type="Script" id=1]
 [ext_resource path="res://GameObjects/TurnRightCommandObject.tscn" type="PackedScene" id=2]
 [ext_resource path="res://GameObjects/TurnLeftCommandObject.tscn" type="PackedScene" id=3]
-[ext_resource path="res://GameObjects/ShipObject.tscn" type="PackedScene" id=4]
-[ext_resource path="res://GameObjects/CommandExecutePoint.tscn" type="PackedScene" id=5]
+[ext_resource path="res://GameObjects/AsteroidObject.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/spacebg_animation/frame1.png" type="Texture" id=5]
+[ext_resource path="res://Assets/spacebg_animation/frame2.png" type="Texture" id=6]
+[ext_resource path="res://Assets/spacebg_animation/frame3.png" type="Texture" id=7]
+[ext_resource path="res://Assets/spacebg_animation/frame4.png" type="Texture" id=8]
+[ext_resource path="res://Assets/spacebg_animation/frame5.png" type="Texture" id=9]
+[ext_resource path="res://Assets/spacebg_animation/frame6.png" type="Texture" id=10]
+[ext_resource path="res://GameObjects/ShipObject.tscn" type="PackedScene" id=11]
+[ext_resource path="res://GameObjects/CommandExecutePoint.tscn" type="PackedScene" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 
 animations = [ {
-"frames": [  ],
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "default",
-"speed": 15.0
+"speed": 0.25
 } ]
 
 [node name="Gameplay" type="Node" index="0"]
@@ -20,16 +27,21 @@ animations = [ {
 script = ExtResource( 1 )
 Right_commands = ExtResource( 2 )
 Left_commands = ExtResource( 3 )
+Asteroids = ExtResource( 4 )
 max_command_buffer = 15
-velocity = 100
+velocity = 200
 max_command_frame_counter = 45
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
 
+position = Vector2( 436, 237 )
 frames = SubResource( 1 )
 animation = "default"
+frame = 2
+playing = true
+_sections_unfolded = [ "Transform" ]
 
-[node name="Ship" parent="." index="1" instance=ExtResource( 4 )]
+[node name="Ship" parent="." index="1" instance=ExtResource( 11 )]
 
 position = Vector2( 432.017, 235.128 )
 
@@ -38,28 +50,40 @@ position = Vector2( 432.017, 235.128 )
 position = Vector2( 97.0007, 440 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="CommandExecutePoint" parent="." index="3" instance=ExtResource( 5 )]
+[node name="CommandExecutePoint" parent="." index="3" instance=ExtResource( 12 )]
 
 position = Vector2( 700, 440 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="ObstacleSpawnPositions" type="Node" parent="." index="4"]
+[node name="AsteroidTimer" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = false
+autostart = false
+
+[node name="ObstacleSpawnPositions" type="Node" parent="." index="5"]
+
+editor/display_folded = true
 
 [node name="1" type="Position2D" parent="ObstacleSpawnPositions" index="0"]
 
-position = Vector2( 25, 18 )
+position = Vector2( 205, 18 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="2" type="Position2D" parent="ObstacleSpawnPositions" index="1"]
 
-position = Vector2( 432.32, 16.2527 )
+position = Vector2( 432, 18 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="3" type="Position2D" parent="ObstacleSpawnPositions" index="2"]
 
-position = Vector2( 839.351, 16.3245 )
+position = Vector2( 660.351, 16.3245 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="4" type="Position2D" parent="ObstacleSpawnPositions" index="3"]
 
-position = Vector2( 26.6396, 236.777 )
+position = Vector2( 26.6396, 242.777 )
 
 [node name="5" type="Position2D" parent="ObstacleSpawnPositions" index="4"]
 
@@ -67,18 +91,23 @@ position = Vector2( 831.656, 237.732 )
 
 [node name="6" type="Position2D" parent="ObstacleSpawnPositions" index="5"]
 
-position = Vector2( 24.0162, 452.181 )
+position = Vector2( 281, 381.181 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="7" type="Position2D" parent="ObstacleSpawnPositions" index="6"]
 
-position = Vector2( 429.274, 451.451 )
+position = Vector2( 431.546, 381 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="8" type="Position2D" parent="ObstacleSpawnPositions" index="7"]
 
-position = Vector2( 833.166, 455.95 )
+position = Vector2( 575, 381 )
+_sections_unfolded = [ "Transform" ]
 
 [connection signal="call_left" from="CommandExecutePoint" to="." method="force_ship_turn_left"]
 
 [connection signal="call_right" from="CommandExecutePoint" to="." method="force_ship_turn_right"]
+
+[connection signal="timeout" from="AsteroidTimer" to="." method="_on_AsteroidTimer_timeout"]
 
 

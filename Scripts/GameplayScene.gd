@@ -2,17 +2,19 @@ extends Node
 
 export (PackedScene) var Right_commands
 export (PackedScene) var Left_commands
+export (PackedScene) var Asteroids
 
 export (int) var max_command_buffer = 15
-export (float) var velocity = 100
+export (float) var velocity = 200
 
 export (int) var max_command_frame_counter = 45
 var current_command_frame_counter
 
 func _ready():
-	current_command_frame_counter = 0
+	current_command_frame_counter = 0	
 	set_process(true)
-
+	$AsteroidTimer.start()
+	
 func _process(delta):
 	if current_command_frame_counter == max_command_frame_counter:
 		input_from_player()
@@ -49,3 +51,17 @@ func force_ship_turn_left():
 func force_ship_turn_right():
 	print("force_ship_turn_right")
 	get_node("Ship").turn_right()
+	
+
+
+func _on_AsteroidTimer_timeout():
+	print("_on_AsteroidTimer_timeout")
+	var temp_index = randi() % 8 + 1
+	var temp_start_position = get_node("ObstacleSpawnPositions/"+str(temp_index)).get_position()
+	var aim_to_position = Global.aim_to_ship_rotation[temp_index]
+		
+	var ast = Asteroids.instance()
+	add_child(ast)
+	ast.position = temp_start_position
+	ast.rotation = 0
+	ast.set_linear_velocity(Vector2(Global.asteroid_velocity, 0).rotated(aim_to_position))

@@ -2,7 +2,7 @@ extends Area2D
 
 signal hit
 
-var current_direction = -PI/2
+var current_direction = PI/2
 var current_state = "idle"
 var current_position;
 
