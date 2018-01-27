@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/BGM_bensound-scifi.ogg-6576b1cc22bcd8ac5f929d2b83f3b626.oggstr"
+
+[deps]
+
+source_file="res://Assets/audio/BGM_bensound-scifi.ogg"
+source_md5="241544c0f75e13006e39b5639b7be89f"
+
+dest_files=[ "res://.import/BGM_bensound-scifi.ogg-6576b1cc22bcd8ac5f929d2b83f3b626.oggstr" ]
+dest_md5="d690470d57655857df8d8612d5a3633b"
+
+[params]
+
+loop=true
+loop_offset=0

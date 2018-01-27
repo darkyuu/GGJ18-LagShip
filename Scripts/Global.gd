@@ -26,9 +26,3 @@ func goto_scene(path):
 	get_tree().set_current_scene(new_scene)
 	current_scene.queue_free()
 	current_scene = new_scene
-	
-func new_game():
-	goto_scene("res://scenes/GameplayScene.tscn")
-	
-	
-	

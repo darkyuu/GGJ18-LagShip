@@ -11,9 +11,8 @@ export (int) var max_command_frame_counter = 45
 var current_command_frame_counter
 
 func _ready():
-	current_command_frame_counter = 0	
 	set_process(true)
-	$AsteroidTimer.start()
+	new_game()
 	
 func _process(delta):
 	if current_command_frame_counter == max_command_frame_counter:
@@ -59,9 +58,17 @@ func _on_AsteroidTimer_timeout():
 	ast.position = temp_start_position
 	ast.rotation = 0
 	ast.set_linear_velocity(Vector2(Global.asteroid_velocity, 0).rotated(aim_to_position))
+
+func new_game():
+	current_command_frame_counter = 0
+	$AsteroidTimer.start()
+	$BGM.play()
 	
+# goto_scene("res://scenes/GameplayScene.tscn")
+
 func game_over():
 	$DeathSound.play()
+	$BGM.stop()
 	print("Game Over")
 	set_process(false)
 	Global.paused = true

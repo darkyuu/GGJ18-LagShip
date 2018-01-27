@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/GameplayScene.gd" type="Script" id=1]
 [ext_resource path="res://GameObjects/TurnRightCommandObject.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://GameObjects/ShipObject.tscn" type="PackedScene" id=11]
 [ext_resource path="res://GameObjects/CommandExecutePoint.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Assets/audio/damagemixed1.wav" type="AudioStream" id=13]
+[ext_resource path="res://Assets/audio/BGM_bensound-scifi.ogg" type="AudioStream" id=14]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -23,7 +24,7 @@ animations = [ {
 "speed": 0.25
 } ]
 
-[node name="Gameplay" type="Node" index="0"]
+[node name="Gameplay" type="Node"]
 
 script = ExtResource( 1 )
 Right_commands = ExtResource( 2 )
@@ -110,6 +111,14 @@ _sections_unfolded = [ "Transform" ]
 stream = ExtResource( 13 )
 volume_db = -15.0
 autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="BGM" type="AudioStreamPlayer" parent="." index="7"]
+
+stream = ExtResource( 14 )
+volume_db = -10.0
+autoplay = true
 mix_target = 0
 bus = "Master"
 
