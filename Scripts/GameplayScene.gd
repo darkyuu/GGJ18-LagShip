@@ -20,7 +20,7 @@ func _process(delta):
 		input_from_player()
 	else:
 		current_command_frame_counter += 1
-		
+
 func input_from_player():
 	if Global.current_command_buffer < max_command_buffer:
 		if Input.is_action_just_pressed("ui_right"):
@@ -56,7 +56,8 @@ func force_ship_turn_right():
 func force_ship_shoot_laser():
 	get_node("Ship").shoot()
 	
-func _on_AsteroidTimer_timeout():
+func _on_SpawnTimer_timeout():
+	print("_on_AsteroidTimer_timeout")
 	var temp_index = randi() % 8 + 1
 	var temp_start_position = get_node("ObstacleSpawnPositions/"+str(temp_index)).get_position()
 	var aim_to_position = Global.aim_to_ship_rotation[temp_index]
@@ -68,18 +69,35 @@ func _on_AsteroidTimer_timeout():
 	ast.set_linear_velocity(Vector2(Global.asteroid_velocity, 0).rotated(aim_to_position))
 
 func new_game():
+	print("new_game()")
 	current_command_frame_counter = 0
-	$AsteroidTimer.start()
+	$DeathSound.stop()
 	$BGM.play()
+	Global.paused = false
+	$SpawnTimer.start()
+	$GameOverHUD.hide()
+	set_process(true)
 	
-# goto_scene("res://scenes/GameplayScene.tscn")
-
+func restart_gameplay():
+	clear_remaining_asteroid(self)
+	$Ship.start()
+	new_game()
+	
+func clear_remaining_asteroid(n):
+	for a in n.get_children():
+		print("["+a.get_name()+"]")
+		if a.get_name().find("Asteroid") != -1:
+			print("free "+a.get_name())
+			a.queue_free()
+			
 func game_over():
 	$DeathSound.play()
 	$BGM.stop()
-	print("Game Over")
 	set_process(false)
 	Global.paused = true
-	$AsteroidTimer.stop();
+	$SpawnTimer.stop()
+	$GameOverHUD.show()
 	
-#	$GameplayHUD.show_game_over()
+func goto_mainmenu():
+	print("goto_mainmenu()")
+	$GameOverHUD.get_tree().change_scene("res://Scenes/MenuScene.tscn")

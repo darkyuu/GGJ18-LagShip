@@ -16,10 +16,6 @@ func explode_itself():
 	$Sprite.visible = false
 	$ExplosionSpriteEffect.visible = true;
 	$ExplosionSpriteEffect.play()
-#	var exlp = explosion.instance()
-#	add_child(exlp)
-#	exlp.set_position(get_global_mouse_position())
-#	exlp.play()
 	$ExplosionSound.play()
 
 func _on_ExplosionSpriteEffect_animation_finished():

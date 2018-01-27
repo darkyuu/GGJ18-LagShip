@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Assets/font/THSarabunNew.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scripts/GameOverHUD.gd" type="Script" id=1]
+[ext_resource path="res://Assets/font/THSarabunNew.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=1]
 
 size = 64
 use_mipmaps = false
 use_filter = true
-font_data = ExtResource( 1 )
+font_data = ExtResource( 2 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=2]
@@ -15,7 +16,7 @@ _sections_unfolded = [ "Font", "Settings" ]
 size = 64
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 1 )
+font_data = ExtResource( 2 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=3]
@@ -23,16 +24,18 @@ _sections_unfolded = [ "Font", "Settings" ]
 size = 64
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 1 )
+font_data = ExtResource( 2 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="GameOverHUD" type="CanvasLayer" index="0"]
+[node name="GameOverHUD" type="CanvasLayer"]
 
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+script = ExtResource( 1 )
+_sections_unfolded = [ "Pause" ]
 
 [node name="restartBtn" type="Button" parent="." index="0"]
 
@@ -106,5 +109,9 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
+
+[connection signal="pressed" from="restartBtn" to="." method="_on_restartBtn_pressed"]
+
+[connection signal="pressed" from="backtomainBtn" to="." method="_on_backtomainBtn_pressed"]
 
 

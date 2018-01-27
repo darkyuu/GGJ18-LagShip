@@ -7,7 +7,7 @@ func _process(delta):
 	pass
 	
 func new_game():
-	print("new_game()")
+#	print("new_game()")
 	$HUD.get_tree().change_scene("res://Scenes/GameplayScene.tscn")
 
 

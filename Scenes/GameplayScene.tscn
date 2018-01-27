@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/GameplayScene.gd" type="Script" id=1]
 [ext_resource path="res://GameObjects/TurnRightCommandObject.tscn" type="PackedScene" id=2]
@@ -13,8 +13,9 @@
 [ext_resource path="res://Assets/spacebg_animation/frame6.png" type="Texture" id=11]
 [ext_resource path="res://GameObjects/ShipObject.tscn" type="PackedScene" id=12]
 [ext_resource path="res://GameObjects/CommandExecutePoint.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Assets/audio/damagemixed1.wav" type="AudioStream" id=14]
-[ext_resource path="res://Assets/audio/BGM_bensound-scifi.ogg" type="AudioStream" id=15]
+[ext_resource path="res://Scenes/GameOverHUD.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Assets/audio/damagemixed1.wav" type="AudioStream" id=15]
+[ext_resource path="res://Assets/audio/BGM_bensound-scifi.ogg" type="AudioStream" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -41,7 +42,6 @@ max_command_frame_counter = 45
 position = Vector2( 436, 237 )
 frames = SubResource( 1 )
 animation = "default"
-frame = 4
 playing = true
 _sections_unfolded = [ "Transform" ]
 
@@ -59,7 +59,7 @@ _sections_unfolded = [ "Transform" ]
 position = Vector2( 700, 440 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="AsteroidTimer" type="Timer" parent="." index="4"]
+[node name="SpawnTimer" type="Timer" parent="." index="4"]
 
 process_mode = 1
 wait_time = 3.0
@@ -108,17 +108,19 @@ _sections_unfolded = [ "Transform" ]
 position = Vector2( 575, 381 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="DeathSound" type="AudioStreamPlayer" parent="." index="6"]
+[node name="GameOverHUD" parent="." index="6" instance=ExtResource( 14 )]
 
-stream = ExtResource( 14 )
+[node name="DeathSound" type="AudioStreamPlayer" parent="." index="7"]
+
+stream = ExtResource( 15 )
 volume_db = -15.0
 autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="BGM" type="AudioStreamPlayer" parent="." index="7"]
+[node name="BGM" type="AudioStreamPlayer" parent="." index="8"]
 
-stream = ExtResource( 15 )
+stream = ExtResource( 16 )
 volume_db = -10.0
 autoplay = true
 mix_target = 0
@@ -132,6 +134,10 @@ bus = "Master"
 
 [connection signal="call_shoot" from="CommandExecutePoint" to="." method="force_ship_shoot_laser"]
 
-[connection signal="timeout" from="AsteroidTimer" to="." method="_on_AsteroidTimer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+
+[connection signal="back_to_main_menu" from="GameOverHUD" to="." method="goto_mainmenu"]
+
+[connection signal="restart_game" from="GameOverHUD" to="." method="restart_gameplay"]
 
 
