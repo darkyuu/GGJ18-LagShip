@@ -3,9 +3,17 @@
 [ext_resource path="res://Scripts/GameplayScene.gd" type="Script" id=1]
 [ext_resource path="res://GameObjects/TurnRightCommandObject.tscn" type="PackedScene" id=2]
 [ext_resource path="res://GameObjects/TurnLeftCommandObject.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/SpaceBackground.png" type="Texture" id=4]
-[ext_resource path="res://GameObjects/ShipObject.tscn" type="PackedScene" id=5]
-[ext_resource path="res://GameObjects/CommandExecutePoint.tscn" type="PackedScene" id=6]
+[ext_resource path="res://GameObjects/ShipObject.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GameObjects/CommandExecutePoint.tscn" type="PackedScene" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "default",
+"speed": 15.0
+} ]
 
 [node name="Gameplay" type="Node" index="0"]
 
@@ -16,33 +24,12 @@ max_command_buffer = 15
 velocity = 100
 max_command_frame_counter = 45
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="." index="0"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
 
-editor/display_folded = true
-layer = -1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-scroll_offset = Vector2( 0, 0 )
-scroll_base_offset = Vector2( 0, 0 )
-scroll_base_scale = Vector2( 1, 1 )
-scroll_limit_begin = Vector2( 0, 0 )
-scroll_limit_end = Vector2( 0, 0 )
-scroll_ignore_camera_zoom = false
+frames = SubResource( 1 )
+animation = "default"
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="0"]
-
-motion_scale = Vector2( 1, 1 )
-motion_offset = Vector2( 0, 0 )
-motion_mirroring = Vector2( 0, 0 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer" index="0"]
-
-position = Vector2( 432.017, 235.128 )
-texture = ExtResource( 4 )
-
-[node name="Ship" parent="." index="1" instance=ExtResource( 5 )]
+[node name="Ship" parent="." index="1" instance=ExtResource( 4 )]
 
 position = Vector2( 432.017, 235.128 )
 
@@ -51,7 +38,7 @@ position = Vector2( 432.017, 235.128 )
 position = Vector2( 97.0007, 440 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="CommandExecutePoint" parent="." index="3" instance=ExtResource( 6 )]
+[node name="CommandExecutePoint" parent="." index="3" instance=ExtResource( 5 )]
 
 position = Vector2( 700, 440 )
 _sections_unfolded = [ "Transform" ]
