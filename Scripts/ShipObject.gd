@@ -1,8 +1,6 @@
 extends Area2D
 
 signal hit
-signal turnLeft
-signal turnRight
 
 var current_direction = -PI/2
 var current_state = "idle"
@@ -12,7 +10,7 @@ func _ready():
 	hide()
 	var screensize = get_viewport().size
 	current_position = Vector2(screensize.x/2, screensize.y/2)
-	
+
 	$Collision.disabled = true
 	start()
 	set_process(false)
@@ -33,12 +31,12 @@ func start():
 	show()
 	$Collision.disabled = false
 	
-func _on_Ship_turnLeft():
+func turn_left():
 	current_direction -= PI/4;
 	trim_direction_in_radian()
 	set_rotation(current_direction);
 
-func _on_Ship_turnRight():
+func turn_right():
 	current_direction += PI/4;
 	trim_direction_in_radian()
 	set_rotation(current_direction)

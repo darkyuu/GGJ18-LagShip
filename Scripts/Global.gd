@@ -5,6 +5,7 @@ var screensize = Vector2()
 var player_state = ["idle", "move"]
 var current_scene = null
 var new_scene = null
+var current_command_buffer = 0
 
 func _ready():
 	screensize = get_viewport().size
