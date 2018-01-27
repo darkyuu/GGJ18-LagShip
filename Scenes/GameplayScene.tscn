@@ -43,6 +43,40 @@ _sections_unfolded = [ "Transform" ]
 position = Vector2( 700, 440 )
 _sections_unfolded = [ "Transform" ]
 
+[node name="ObstacleSpawnPositions" type="Node" parent="." index="4"]
+
+[node name="1" type="Position2D" parent="ObstacleSpawnPositions" index="0"]
+
+position = Vector2( 25, 18 )
+
+[node name="2" type="Position2D" parent="ObstacleSpawnPositions" index="1"]
+
+position = Vector2( 432.32, 16.2527 )
+
+[node name="3" type="Position2D" parent="ObstacleSpawnPositions" index="2"]
+
+position = Vector2( 839.351, 16.3245 )
+
+[node name="4" type="Position2D" parent="ObstacleSpawnPositions" index="3"]
+
+position = Vector2( 26.6396, 236.777 )
+
+[node name="5" type="Position2D" parent="ObstacleSpawnPositions" index="4"]
+
+position = Vector2( 831.656, 237.732 )
+
+[node name="6" type="Position2D" parent="ObstacleSpawnPositions" index="5"]
+
+position = Vector2( 24.0162, 452.181 )
+
+[node name="7" type="Position2D" parent="ObstacleSpawnPositions" index="6"]
+
+position = Vector2( 429.274, 451.451 )
+
+[node name="8" type="Position2D" parent="ObstacleSpawnPositions" index="7"]
+
+position = Vector2( 833.166, 455.95 )
+
 [connection signal="call_left" from="CommandExecutePoint" to="." method="force_ship_turn_left"]
 
 [connection signal="call_right" from="CommandExecutePoint" to="." method="force_ship_turn_right"]
