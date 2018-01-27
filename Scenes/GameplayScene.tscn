@@ -1,24 +1,25 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/GameplayScene.gd" type="Script" id=1]
 [ext_resource path="res://GameObjects/TurnRightCommandObject.tscn" type="PackedScene" id=2]
 [ext_resource path="res://GameObjects/TurnLeftCommandObject.tscn" type="PackedScene" id=3]
-[ext_resource path="res://GameObjects/AsteroidObject.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/spacebg_animation/frame1.png" type="Texture" id=5]
-[ext_resource path="res://Assets/spacebg_animation/frame2.png" type="Texture" id=6]
-[ext_resource path="res://Assets/spacebg_animation/frame3.png" type="Texture" id=7]
-[ext_resource path="res://Assets/spacebg_animation/frame4.png" type="Texture" id=8]
-[ext_resource path="res://Assets/spacebg_animation/frame5.png" type="Texture" id=9]
-[ext_resource path="res://Assets/spacebg_animation/frame6.png" type="Texture" id=10]
-[ext_resource path="res://GameObjects/ShipObject.tscn" type="PackedScene" id=11]
-[ext_resource path="res://GameObjects/CommandExecutePoint.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Assets/audio/damagemixed1.wav" type="AudioStream" id=13]
-[ext_resource path="res://Assets/audio/BGM_bensound-scifi.ogg" type="AudioStream" id=14]
+[ext_resource path="res://GameObjects/ShootCommandObject.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GameObjects/AsteroidObject.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/spacebg_animation/frame1.png" type="Texture" id=6]
+[ext_resource path="res://Assets/spacebg_animation/frame2.png" type="Texture" id=7]
+[ext_resource path="res://Assets/spacebg_animation/frame3.png" type="Texture" id=8]
+[ext_resource path="res://Assets/spacebg_animation/frame4.png" type="Texture" id=9]
+[ext_resource path="res://Assets/spacebg_animation/frame5.png" type="Texture" id=10]
+[ext_resource path="res://Assets/spacebg_animation/frame6.png" type="Texture" id=11]
+[ext_resource path="res://GameObjects/ShipObject.tscn" type="PackedScene" id=12]
+[ext_resource path="res://GameObjects/CommandExecutePoint.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Assets/audio/damagemixed1.wav" type="AudioStream" id=14]
+[ext_resource path="res://Assets/audio/BGM_bensound-scifi.ogg" type="AudioStream" id=15]
 
 [sub_resource type="SpriteFrames" id=1]
 
 animations = [ {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "default",
 "speed": 0.25
@@ -29,7 +30,8 @@ animations = [ {
 script = ExtResource( 1 )
 Right_commands = ExtResource( 2 )
 Left_commands = ExtResource( 3 )
-Asteroids = ExtResource( 4 )
+Shoot_commands = ExtResource( 4 )
+Asteroids = ExtResource( 5 )
 max_command_buffer = 15
 velocity = 200
 max_command_frame_counter = 45
@@ -39,10 +41,11 @@ max_command_frame_counter = 45
 position = Vector2( 436, 237 )
 frames = SubResource( 1 )
 animation = "default"
+frame = 4
 playing = true
 _sections_unfolded = [ "Transform" ]
 
-[node name="Ship" parent="." index="1" instance=ExtResource( 11 )]
+[node name="Ship" parent="." index="1" instance=ExtResource( 12 )]
 
 position = Vector2( 432.017, 235.128 )
 
@@ -51,7 +54,7 @@ position = Vector2( 432.017, 235.128 )
 position = Vector2( 97.0007, 440 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="CommandExecutePoint" parent="." index="3" instance=ExtResource( 12 )]
+[node name="CommandExecutePoint" parent="." index="3" instance=ExtResource( 13 )]
 
 position = Vector2( 700, 440 )
 _sections_unfolded = [ "Transform" ]
@@ -107,7 +110,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="." index="6"]
 
-stream = ExtResource( 13 )
+stream = ExtResource( 14 )
 volume_db = -15.0
 autoplay = false
 mix_target = 0
@@ -115,7 +118,7 @@ bus = "Master"
 
 [node name="BGM" type="AudioStreamPlayer" parent="." index="7"]
 
-stream = ExtResource( 14 )
+stream = ExtResource( 15 )
 volume_db = -10.0
 autoplay = true
 mix_target = 0
@@ -126,6 +129,8 @@ bus = "Master"
 [connection signal="call_left" from="CommandExecutePoint" to="." method="force_ship_turn_left"]
 
 [connection signal="call_right" from="CommandExecutePoint" to="." method="force_ship_turn_right"]
+
+[connection signal="call_shoot" from="CommandExecutePoint" to="." method="force_ship_shoot_laser"]
 
 [connection signal="timeout" from="AsteroidTimer" to="." method="_on_AsteroidTimer_timeout"]
 

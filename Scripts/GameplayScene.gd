@@ -2,6 +2,7 @@ extends Node
 
 export (PackedScene) var Right_commands
 export (PackedScene) var Left_commands
+export (PackedScene) var Shoot_commands
 export (PackedScene) var Asteroids
 
 export (int) var max_command_buffer = 15
@@ -24,15 +25,19 @@ func input_from_player():
 	if Global.current_command_buffer < max_command_buffer:
 		if Input.is_action_just_pressed("ui_right"):
 			create_command("right")
-		if Input.is_action_just_pressed("ui_left"):
+		elif Input.is_action_just_pressed("ui_left"):
 			create_command("left")
+		elif Input.is_action_just_pressed("player_shoot"):
+			create_command("shoot")
 
 func create_command(command_string):
 	var command_object
-	if(command_string == "left"):
+	if command_string == "left":
 		command_object = Left_commands.instance()
-	else:
+	elif command_string == "right":
 		command_object = Right_commands.instance()
+	elif command_string == "shoot":
+		command_object = Shoot_commands.instance()
 	add_child(command_object)
 	
 	var direction = 0
@@ -47,6 +52,9 @@ func force_ship_turn_left():
 	
 func force_ship_turn_right():
 	get_node("Ship").turn_right()
+	
+func force_ship_shoot_laser():
+	get_node("Ship").shoot()
 	
 func _on_AsteroidTimer_timeout():
 	var temp_index = randi() % 8 + 1
