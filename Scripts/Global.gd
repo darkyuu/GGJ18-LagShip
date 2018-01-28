@@ -6,7 +6,6 @@ var player_state
 var current_scene = null
 var new_scene = null
 var current_command_buffer = 0
-#var asteroid_velocity = 50
 var paused = false
 var level = 0
 var command_velocity = {1: 1600, 2: 1600, 3: 1400, 4: 1400, 5: 1000,  
@@ -17,12 +16,12 @@ var command_minimum_velocity = 240
 var command_latency_factor = {1: 0.5, 2: 1.0, 3: 1.5, 4: 2.0, 5: 2.5, 
 								6: 3.0, 7: 3.5, 8: 4.0, 9: 4.5, 10: 5.0}
 								
-var level_spawn_time = {1: 3, 2: 3, 3: 2.5, 4: 2.5, 5: 2, 
-								6: 2, 7: 2, 8: 2, 9: 2, 10: 2} 
+var level_spawn_time = {1: 3, 2: 3, 3: 3, 4: 2.5, 5: 2.5, 
+								6: 2.5, 7: 2, 8: 2, 9: 2, 10: 2}
 
 var asteroid_initial_velocity = {1: 50, 2: 50, 3: 50, 
-								4: 150, 5: 150,  
-								6: 50, 7: 50, 8: 50}
+								4: 70, 5: 70,  
+								6: 30, 7: 30, 8: 30}
 
 var aim_to_ship_rotation = {1: PI/4, 2: PI/2, 3: 3*PI/4,
 							4: 0, 5: PI,  

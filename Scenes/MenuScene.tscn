@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/MenuScene.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/MenuHUD.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/audio/BGM_bensound-scifi.ogg" type="AudioStream" id=3]
 
-[node name="Menu" type="Node"]
+[node name="Menu" type="Node" index="0"]
 
 script = ExtResource( 1 )
 
@@ -23,6 +24,14 @@ size_flags_vertical = 1
 color = Color( 0.0102539, 0.116932, 0.125, 1 )
 
 [node name="HUD" parent="." index="1" instance=ExtResource( 2 )]
+
+[node name="BGM" type="AudioStreamPlayer" parent="." index="2"]
+
+stream = ExtResource( 3 )
+volume_db = -10.0
+autoplay = true
+mix_target = 0
+bus = "Master"
 
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 
