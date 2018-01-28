@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/MenuScene.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/MenuHUD.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Assets/audio/BGM_bensound-scifi.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Assets/sprite/microwave.png" type="Texture" id=3]
+[ext_resource path="res://Assets/sprite/ship.png" type="Texture" id=4]
+[ext_resource path="res://Assets/audio/BGM_bensound-scifi.ogg" type="AudioStream" id=5]
 
-[node name="Menu" type="Node"]
+[node name="Menu" type="Node" index="0"]
 
 script = ExtResource( 1 )
 
@@ -25,9 +27,26 @@ color = Color( 0.0102539, 0.116932, 0.125, 1 )
 
 [node name="HUD" parent="." index="1" instance=ExtResource( 2 )]
 
-[node name="BGM" type="AudioStreamPlayer" parent="." index="2"]
+[node name="Sprite" type="Sprite" parent="." index="2"]
 
-stream = ExtResource( 3 )
+modulate = Color( 1, 1, 1, 0.204431 )
+position = Vector2( 203.498, 283.253 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform", "Visibility", "Z Index" ]
+
+[node name="Sprite2" type="Sprite" parent="." index="3"]
+
+modulate = Color( 1, 1, 1, 0.243098 )
+position = Vector2( 805.608, 16.3081 )
+rotation = 0.785398
+scale = Vector2( 1, 1.7 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="BGM" type="AudioStreamPlayer" parent="." index="4"]
+
+stream = ExtResource( 5 )
 volume_db = -10.0
 autoplay = true
 mix_target = 0
