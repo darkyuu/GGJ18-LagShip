@@ -48,8 +48,13 @@ func create_command(command_string):
 	
 	var direction = 0
 	command_object.position = $CommandStartPoint.position
+	velocity = Global.command_velocity[Global.get_level_for_use_as_index()]
+	var base = 5
+	velocity -= Global.command_latency_factor[Global.get_level_for_use_as_index()]/base*velocity
+	velocity = clamp(velocity, Global.command_minimum_velocity, Global.command_velocity[1])
+	print("wave: "+str(Global.level)+" velocity:"+str(velocity))
 	command_object.set_linear_velocity(Vector2(velocity, 0).rotated(direction))
-		
+
 	Global.current_command_buffer += 1
 	current_command_frame_counter = 0
 	
@@ -62,10 +67,7 @@ func force_ship_turn_right():
 func force_ship_shoot_laser():
 	get_node("Ship").shoot()
 	
-func _on_SpawnTimer_timeout():
-	for a in $BlackHoles.get_children():
-		a.queue_free()
-	
+func _on_SpawnTimer_timeout():	
 	for i in Global.spawn_patterns[list_selected_index]:
 		set_Asteroid_to_spawn_position(i)
 		
@@ -89,12 +91,16 @@ func restart_gameplay():
 func start_next_level():
 	Global.player_state = "wait"
 	Global.level += 1
+	$GameplayHUD/MessageTimer.wait_time = Global.level_spawn_time[Global.get_level_for_use_as_index()]
 	$GameplayHUD.show_messsage("Wave %s" % Global.level)
-	yield($GameplayHUD/MessageTimer, "timeout")
-	
 	list_selected_index = randi() % Global.max_spawn_index + 1 
 	for i in Global.spawn_patterns[list_selected_index]:
 		set_blackhole_effect_to_spawn_position(i)
+	yield($GameplayHUD/MessageTimer, "timeout")
+	for a in $BlackHoles.get_children():
+		a.queue_free()
+	
+	$SpawnTimer.wait_time = 0.1
 	$SpawnTimer.start()
 
 func set_blackhole_effect_to_spawn_position(position_index):
@@ -112,7 +118,7 @@ func set_Asteroid_to_spawn_position(position_index):
 	$AsteroidPool.add_child(ast)
 	ast.position = temp_start_position
 	ast.rotation = 0
-	ast.set_linear_velocity(Vector2(Global.asteroid_velocity, 0).rotated(aim_to_position))
+	ast.set_linear_velocity(Vector2(Global.asteroid_initial_velocity[position_index], 0).rotated(aim_to_position))
 
 func clear_remaining_asteroid(n):
 	for a in n.get_children():
@@ -127,4 +133,5 @@ func game_over():
 	$GameOverHUD.show()
 	
 func goto_mainmenu():
+	Global.level = 0
 	$GameOverHUD.get_tree().change_scene("res://Scenes/MenuScene.tscn")
