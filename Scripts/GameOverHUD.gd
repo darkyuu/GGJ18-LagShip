@@ -22,7 +22,6 @@ func hide():
 	$gameOver.hide()
 
 func _on_restartBtn_pressed():
-	print("_on_restartBtn_pressed")
 	emit_signal("restart_game")
 
 func _on_backtomainBtn_pressed():

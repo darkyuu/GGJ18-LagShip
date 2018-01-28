@@ -4,22 +4,28 @@ export (PackedScene) var Right_commands
 export (PackedScene) var Left_commands
 export (PackedScene) var Shoot_commands
 export (PackedScene) var Asteroids
+export (PackedScene) var BlackHoles
 
 export (int) var max_command_buffer = 15
 export (float) var velocity = 200
 
-export (int) var max_command_frame_counter = 45
+export (int) var max_command_frame_counter = 10
 var current_command_frame_counter
+var list_selected_index = 1
 
 func _ready():
 	set_process(true)
 	new_game()
+	start_next_level()
 	
 func _process(delta):
 	if current_command_frame_counter == max_command_frame_counter:
 		input_from_player()
 	else:
 		current_command_frame_counter += 1
+		
+	if Global.player_state == "play" and $AsteroidPool.get_child_count() == 0:
+		start_next_level()
 
 func input_from_player():
 	if Global.current_command_buffer < max_command_buffer:
@@ -57,39 +63,61 @@ func force_ship_shoot_laser():
 	get_node("Ship").shoot()
 	
 func _on_SpawnTimer_timeout():
-	print("_on_AsteroidTimer_timeout")
-	var temp_index = randi() % 8 + 1
-	var temp_start_position = get_node("ObstacleSpawnPositions/"+str(temp_index)).get_position()
-	var aim_to_position = Global.aim_to_ship_rotation[temp_index]
+	for a in $BlackHoles.get_children():
+		a.queue_free()
+	
+	for i in Global.spawn_patterns[list_selected_index]:
+		set_Asteroid_to_spawn_position(i)
 		
-	var ast = Asteroids.instance()
-	add_child(ast)
-	ast.position = temp_start_position
-	ast.rotation = 0
-	ast.set_linear_velocity(Vector2(Global.asteroid_velocity, 0).rotated(aim_to_position))
+	Global.player_state = "play"
 
 func new_game():
-	print("new_game()")
 	current_command_frame_counter = 0
 	$DeathSound.stop()
 	$BGM.play()
 	Global.paused = false
-	$SpawnTimer.start()
 	$GameOverHUD.hide()
 	set_process(true)
 	
 func restart_gameplay():
-	clear_remaining_asteroid(self)
+	Global.level = 0
+	clear_remaining_asteroid($AsteroidPool)
 	$Ship.start()
 	new_game()
+	start_next_level()
 	
+func start_next_level():
+	Global.player_state = "wait"
+	Global.level += 1
+	$GameplayHUD.show_messsage("Wave %s" % Global.level)
+	yield($GameplayHUD/MessageTimer, "timeout")
+	
+	list_selected_index = randi() % Global.max_spawn_index + 1 
+	for i in Global.spawn_patterns[list_selected_index]:
+		set_blackhole_effect_to_spawn_position(i)
+	$SpawnTimer.start()
+
+func set_blackhole_effect_to_spawn_position(position_index):
+	var temp_start_position = get_node("ObstacleSpawnPositions/"+str(position_index)).get_position()
+	var bh = BlackHoles.instance()
+	$BlackHoles.add_child(bh)
+	bh.position = temp_start_position
+	bh.play()
+	
+func set_Asteroid_to_spawn_position(position_index):
+	var temp_start_position = get_node("ObstacleSpawnPositions/"+str(position_index)).get_position()
+	var aim_to_position = Global.aim_to_ship_rotation[position_index]
+
+	var ast = Asteroids.instance()
+	$AsteroidPool.add_child(ast)
+	ast.position = temp_start_position
+	ast.rotation = 0
+	ast.set_linear_velocity(Vector2(Global.asteroid_velocity, 0).rotated(aim_to_position))
+
 func clear_remaining_asteroid(n):
 	for a in n.get_children():
-		print("["+a.get_name()+"]")
-		if a.get_name().find("Asteroid") != -1:
-			print("free "+a.get_name())
-			a.queue_free()
-			
+		a.queue_free()
+
 func game_over():
 	$DeathSound.play()
 	$BGM.stop()
@@ -99,5 +127,4 @@ func game_over():
 	$GameOverHUD.show()
 	
 func goto_mainmenu():
-	print("goto_mainmenu()")
 	$GameOverHUD.get_tree().change_scene("res://Scenes/MenuScene.tscn")

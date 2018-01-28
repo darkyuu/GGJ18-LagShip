@@ -13,9 +13,7 @@ func show_gameover():
 	show_message("GAME OVER")
 
 func _on_RestartButton_pressed():
-	print("_on_RestartButton_pressed")
 	emit_signal("restart_game")
 
 func _on_MenuButton_pressed():
-	print("_on_MenuButton_pressed")
 	emit_signal("menu_game")

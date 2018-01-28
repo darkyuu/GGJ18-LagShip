@@ -14,6 +14,9 @@ func _process(delta):
 	
 func explode_itself():
 	$Sprite.visible = false
+	$Collision.disabled = true
+	sleeping = true
+	
 	$ExplosionSpriteEffect.visible = true;
 	$ExplosionSpriteEffect.play()
 	$ExplosionSound.play()

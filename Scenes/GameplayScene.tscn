@@ -1,51 +1,55 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/GameplayScene.gd" type="Script" id=1]
 [ext_resource path="res://GameObjects/TurnRightCommandObject.tscn" type="PackedScene" id=2]
 [ext_resource path="res://GameObjects/TurnLeftCommandObject.tscn" type="PackedScene" id=3]
 [ext_resource path="res://GameObjects/ShootCommandObject.tscn" type="PackedScene" id=4]
 [ext_resource path="res://GameObjects/AsteroidObject.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Assets/spacebg_animation/frame1.png" type="Texture" id=6]
-[ext_resource path="res://Assets/spacebg_animation/frame2.png" type="Texture" id=7]
-[ext_resource path="res://Assets/spacebg_animation/frame3.png" type="Texture" id=8]
-[ext_resource path="res://Assets/spacebg_animation/frame4.png" type="Texture" id=9]
-[ext_resource path="res://Assets/spacebg_animation/frame5.png" type="Texture" id=10]
-[ext_resource path="res://Assets/spacebg_animation/frame6.png" type="Texture" id=11]
-[ext_resource path="res://GameObjects/ShipObject.tscn" type="PackedScene" id=12]
-[ext_resource path="res://GameObjects/CommandExecutePoint.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Scenes/GameOverHUD.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Assets/audio/damagemixed1.wav" type="AudioStream" id=15]
-[ext_resource path="res://Assets/audio/BGM_bensound-scifi.ogg" type="AudioStream" id=16]
+[ext_resource path="res://GameObjects/BlackHoleObject.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/spacebg_animation/frame1.png" type="Texture" id=7]
+[ext_resource path="res://Assets/spacebg_animation/frame2.png" type="Texture" id=8]
+[ext_resource path="res://Assets/spacebg_animation/frame3.png" type="Texture" id=9]
+[ext_resource path="res://Assets/spacebg_animation/frame4.png" type="Texture" id=10]
+[ext_resource path="res://Assets/spacebg_animation/frame5.png" type="Texture" id=11]
+[ext_resource path="res://Assets/spacebg_animation/frame6.png" type="Texture" id=12]
+[ext_resource path="res://GameObjects/ShipObject.tscn" type="PackedScene" id=13]
+[ext_resource path="res://GameObjects/CommandExecutePoint.tscn" type="PackedScene" id=14]
+[ext_resource path="res://GameObjects/GameplayHUDObject.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/GameOverHUD.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Assets/audio/damagemixed1.wav" type="AudioStream" id=17]
+[ext_resource path="res://Assets/audio/BGM_bensound-scifi.ogg" type="AudioStream" id=18]
 
 [sub_resource type="SpriteFrames" id=1]
 
 animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "default",
 "speed": 0.25
 } ]
 
-[node name="Gameplay" type="Node" index="0"]
+[node name="Gameplay" type="Node"]
 
 script = ExtResource( 1 )
 Right_commands = ExtResource( 2 )
 Left_commands = ExtResource( 3 )
 Shoot_commands = ExtResource( 4 )
 Asteroids = ExtResource( 5 )
+BlackHoles = ExtResource( 6 )
 max_command_buffer = 15
 velocity = 200
-max_command_frame_counter = 45
+max_command_frame_counter = 10
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
 
 position = Vector2( 436, 237 )
 frames = SubResource( 1 )
 animation = "default"
+frame = 3
 playing = true
 _sections_unfolded = [ "Transform" ]
 
-[node name="Ship" parent="." index="1" instance=ExtResource( 12 )]
+[node name="Ship" parent="." index="1" instance=ExtResource( 13 )]
 
 position = Vector2( 432.017, 235.128 )
 
@@ -54,7 +58,7 @@ position = Vector2( 432.017, 235.128 )
 position = Vector2( 97.0007, 440 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="CommandExecutePoint" parent="." index="3" instance=ExtResource( 13 )]
+[node name="CommandExecutePoint" parent="." index="3" instance=ExtResource( 14 )]
 
 position = Vector2( 700, 440 )
 _sections_unfolded = [ "Transform" ]
@@ -63,7 +67,7 @@ _sections_unfolded = [ "Transform" ]
 
 process_mode = 1
 wait_time = 3.0
-one_shot = false
+one_shot = true
 autostart = false
 
 [node name="ObstacleSpawnPositions" type="Node" parent="." index="5"]
@@ -108,19 +112,25 @@ _sections_unfolded = [ "Transform" ]
 position = Vector2( 575, 381 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="GameOverHUD" parent="." index="6" instance=ExtResource( 14 )]
+[node name="AsteroidPool" type="Node" parent="." index="6"]
 
-[node name="DeathSound" type="AudioStreamPlayer" parent="." index="7"]
+[node name="BlackHoles" type="Node" parent="." index="7"]
 
-stream = ExtResource( 15 )
+[node name="GameplayHUD" parent="." index="8" instance=ExtResource( 15 )]
+
+[node name="GameOverHUD" parent="." index="9" instance=ExtResource( 16 )]
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="." index="10"]
+
+stream = ExtResource( 17 )
 volume_db = -15.0
 autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="BGM" type="AudioStreamPlayer" parent="." index="8"]
+[node name="BGM" type="AudioStreamPlayer" parent="." index="11"]
 
-stream = ExtResource( 16 )
+stream = ExtResource( 18 )
 volume_db = -10.0
 autoplay = true
 mix_target = 0
