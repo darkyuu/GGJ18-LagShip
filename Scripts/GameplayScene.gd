@@ -12,8 +12,10 @@ export (float) var velocity = 200
 export (int) var max_command_frame_counter = 10
 var current_command_frame_counter
 var list_selected_index = 1
+var spawn_patterns = Array()
 
 func _ready():
+	randomize()
 	set_process(true)
 	new_game()
 	start_next_level()
@@ -67,8 +69,8 @@ func force_ship_turn_right():
 func force_ship_shoot_laser():
 	get_node("Ship").shoot()
 	
-func _on_SpawnTimer_timeout():	
-	for i in Global.spawn_patterns[list_selected_index]:
+func _on_SpawnTimer_timeout():
+	for i in spawn_patterns: #Global.spawn_patterns[list_selected_index]:
 		set_Asteroid_to_spawn_position(i)
 		
 	Global.player_state = "play"
@@ -96,8 +98,10 @@ func start_next_level():
 	var latencyString = str(Global.command_latency_factor[Global.get_level_for_use_as_index()]*100)
 	$BarSet/LatencyLabel.text = "Latency\n"+ latencyString
 	
-	list_selected_index = randi() % Global.max_spawn_index + 1 
-	for i in Global.spawn_patterns[list_selected_index]:
+#	list_selected_index = randi() % Global.max_spawn_index + 1 
+	spawn_patterns.clear()
+	spawn_patterns = Global.generate_spawn_pattern()
+	for i in spawn_patterns: #Global.spawn_patterns[list_selected_index]:
 		set_blackhole_effect_to_spawn_position(i)
 	yield($GameplayHUD/MessageTimer, "timeout")
 	for a in $BlackHoles.get_children():
