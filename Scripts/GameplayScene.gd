@@ -86,6 +86,7 @@ func new_game():
 func restart_gameplay():
 	Global.level = 0
 	clear_remaining_asteroid($AsteroidPool)
+	$Ship/Sprite.show()
 	$Ship.start()
 	new_game()
 	start_next_level()
@@ -94,7 +95,7 @@ func start_next_level():
 	Global.player_state = "wait"
 	Global.level += 1
 	$GameplayHUD/MessageTimer.wait_time = Global.level_spawn_time[Global.get_level_for_use_as_index()]
-	$GameplayHUD.show_messsage("Wave %s" % Global.level)
+	$GameplayHUD.show_messsage("WAVE %s" % Global.level)
 	var latencyString = str(Global.command_latency_factor[Global.get_level_for_use_as_index()]*100)
 	$BarSet/LatencyLabel.text = "Latency\n"+ latencyString
 	

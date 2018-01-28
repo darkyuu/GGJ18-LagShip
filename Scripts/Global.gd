@@ -11,7 +11,7 @@ var level = 0
 var command_velocity = {1: 1600, 2: 1600, 3: 1400, 4: 1400, 5: 1000,  
 						6: 1000, 7: 800, 8: 800, 9: 800, 10: 800}
 						
-var command_minimum_velocity = 240
+var command_minimum_velocity = 300
 						
 var command_latency_factor = {1: 0.5, 2: 1.0, 3: 1.5, 4: 2.0, 5: 2.5, 
 								6: 3.0, 7: 3.5, 8: 4.0, 9: 4.5, 10: 5.0}

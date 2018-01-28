@@ -40,7 +40,7 @@ use_filter = false
 font_data = ExtResource( 17 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Font/fallback", "Resource", "Settings" ]
 
-[node name="Gameplay" type="Node"]
+[node name="Gameplay" type="Node" index="0"]
 
 script = ExtResource( 1 )
 Right_commands = ExtResource( 2 )
@@ -57,7 +57,7 @@ max_command_frame_counter = 10
 position = Vector2( 430.99, 245.351 )
 frames = SubResource( 1 )
 animation = "default"
-frame = 2
+frame = 4
 playing = true
 _sections_unfolded = [ "Transform" ]
 

@@ -13,21 +13,23 @@ func _ready():
 	current_position = Vector2(screensize.x/2, screensize.y/2)
 
 	$Collision.disabled = true
+	$ExplosionSpriteEffect.visible = false;
 	start()
 	set_process(false)
 #	set_process(true) #for test in GameObject
 	
 func _process(delta):
-	if Input.is_action_just_pressed("player_shoot"):
-		shoot()
-	if Input.is_action_just_pressed("ui_right"):
-		current_direction += PI/4;
-		trim_direction_in_radian()
-		set_rotation(current_direction)
-	if Input.is_action_just_pressed("ui_left"):
-		current_direction -= PI/4
-		trim_direction_in_radian()
-		set_rotation(current_direction)
+	pass
+#	if Input.is_action_just_pressed("player_shoot"):
+#		shoot()
+#	if Input.is_action_just_pressed("ui_right"):
+#		current_direction += PI/4;
+#		trim_direction_in_radian()
+#		set_rotation(current_direction)
+#	if Input.is_action_just_pressed("ui_left"):
+#		current_direction -= PI/4
+#		trim_direction_in_radian()
+#		set_rotation(current_direction)
 
 func start():
 	set_position(current_position)
@@ -53,7 +55,9 @@ func trim_direction_in_radian():
 
 func _on_Ship_body_entered( body ):
 	$Collision.disabled = true
-	hide()
+	$Sprite.hide()
+	$ExplosionSpriteEffect.visible = true;
+	$ExplosionSpriteEffect.play()
 	emit_signal("hit")
 	
 func shoot():
@@ -61,3 +65,6 @@ func shoot():
 	$BulletContainer.add_child(bullet_obj)
 	bullet_obj.start_at(get_rotation(), $Muzzle.get_global_position())
 	$ShootSound.play()
+
+func _on_ExplosionSpriteEffect_animation_finished():
+	$ExplosionSpriteEffect.hide()
