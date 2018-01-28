@@ -28,8 +28,6 @@ var aim_to_ship_rotation = {1: PI/4, 2: PI/2, 3: 3*PI/4,
 							6: 7*PI/4, 7: 3*PI/2, 8: 5*PI/4}
 							
 
-							
-							
 var max_spawn_index = 4
 var spawn_patterns = {1: [5], 2: [7], 3: [8, 5], 4: [3, 2, 5]}
 
@@ -52,3 +50,24 @@ func get_level_for_use_as_index():
 		return 10
 	else:
 		return level
+		
+func generate_spawn_pattern():
+	pass
+#	var result = Array()
+#	var counter = 0
+#	if level == 1 or level == 2:
+#		while(counter < level):
+#			if(result.find() == -1)
+#				result.append(randi() % 8 + 1)
+#				counter += 1
+#	else:
+#
+#		result.append(randi() % 8 + 1) 
+#	elif(level == 2)
+#		while(end_addition == false):
+#			if(result.find() == -1)
+#				result.append(randi() % 8 + 1)
+#	else
+#
+#		result
+#	return result

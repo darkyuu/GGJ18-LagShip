@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/explosion03.png-9bfea8ae4fae2185a51a04ddc297d431.stex"
+path="res://.import/microwave.png-70185de3271db37add90a0c267831a9b.stex"
 
 [deps]
 
-source_file="res://Assets/explosion_animation/explosion03.png"
-source_md5="e999aa2b5997d2da155f3f128f643e4e"
+source_file="res://Assets/sprite/microwave.png"
+source_md5="9c10dc5078be678923b7cbc163b49632"
 
-dest_files=[ "res://.import/explosion03.png-9bfea8ae4fae2185a51a04ddc297d431.stex" ]
-dest_md5="68079cf339394280d727717aa44bfe5f"
+dest_files=[ "res://.import/microwave.png-70185de3271db37add90a0c267831a9b.stex" ]
+dest_md5="4f58c5aa84513ebc4d76ff4970a85816"
 
 [params]
 

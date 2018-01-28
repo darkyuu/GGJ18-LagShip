@@ -93,6 +93,9 @@ func start_next_level():
 	Global.level += 1
 	$GameplayHUD/MessageTimer.wait_time = Global.level_spawn_time[Global.get_level_for_use_as_index()]
 	$GameplayHUD.show_messsage("Wave %s" % Global.level)
+	var latencyString = str(Global.command_latency_factor[Global.get_level_for_use_as_index()]*100)
+	$BarSet/LatencyLabel.text = "Latency\n"+ latencyString
+	
 	list_selected_index = randi() % Global.max_spawn_index + 1 
 	for i in Global.spawn_patterns[list_selected_index]:
 		set_blackhole_effect_to_spawn_position(i)

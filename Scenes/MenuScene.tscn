@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/MenuHUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/audio/BGM_bensound-scifi.ogg" type="AudioStream" id=3]
 
-[node name="Menu" type="Node" index="0"]
+[node name="Menu" type="Node"]
 
 script = ExtResource( 1 )
 

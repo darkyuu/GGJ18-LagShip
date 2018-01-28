@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/explosion03.png-9bfea8ae4fae2185a51a04ddc297d431.stex"
+path="res://.import/bar.png-ea7b4e3c165d98407f3e17cbdf69b8c2.stex"
 
 [deps]
 
-source_file="res://Assets/explosion_animation/explosion03.png"
-source_md5="e999aa2b5997d2da155f3f128f643e4e"
+source_file="res://Assets/sprite/bar.png"
+source_md5="3b14bb798ede3c9ed415384332bc5313"
 
-dest_files=[ "res://.import/explosion03.png-9bfea8ae4fae2185a51a04ddc297d431.stex" ]
-dest_md5="68079cf339394280d727717aa44bfe5f"
+dest_files=[ "res://.import/bar.png-ea7b4e3c165d98407f3e17cbdf69b8c2.stex" ]
+dest_md5="ce6333848587f0cfad48d9204472000a"
 
 [params]
 
